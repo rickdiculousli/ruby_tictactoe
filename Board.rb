@@ -4,12 +4,14 @@ class Board
 		@board = [[],
 							[],
 							[]]
+		@piece_counter = 0
 	end
 
 	def reset
 		@board = [[],
 							[],
 							[]]
+		@piece_counter = 0
 	end
 
 	def set_mark(column, row, mark) # input as index
@@ -17,6 +19,7 @@ class Board
 			@board[row][column] = mark
 
 			puts "			Put piece #{mark} on row: #{row+1} col: #{column+1}"
+			@piece_counter+=1
 			true
 		else
 			puts "			Unable to put #{mark} on row: #{row+1} col: #{column+1}"
@@ -24,7 +27,7 @@ class Board
 		end
 	end
 
-	def get_win_mark
+	def end_marker
 		mark = nil
 		3.times do |i|
 			if @board[i][0] == @board[i][1] && @board[i][1] == @board[i][2]
@@ -38,6 +41,9 @@ class Board
 			 (@board[0][2] == @board[1][1] && @board[1][1] ==  @board[2][0])
 			 mark = @board[1][1]
 		end
+		if @piece_counter == 9
+			mark ||= :nowinner
+		end
 		mark
 	end
 
@@ -45,10 +51,13 @@ class Board
 		str ="
 		|------|------|------|
 		|  #{@board[0][0]|| '*'}   | #{@board[0][1]|| '*'}    |  #{@board[0][2]|| '*'}   |
+		|   1  |   2  |   3  |
 		|------|------|------|
 		|  #{@board[1][0]|| '*'}   | #{@board[1][1]|| '*'}    |  #{@board[1][2]|| '*'}   |
+		|   4  |   5  |   6  |
 		|------|------|------|
 		|  #{@board[2][0]|| '*'}   | #{@board[2][1]|| '*'}    |  #{@board[2][2]|| '*'}   |
+		|   7  |   8  |  9   |
 		|------|------|------|"
 		
 		puts str

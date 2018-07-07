@@ -3,16 +3,10 @@ require './Board.rb'
 
 class Game
 
-	def initiallize
-	end
-
-	def start
+	def initialize
 		@board = Board.new
 		setup_players
 		run_game
-	end
-	def show
-		@board
 	end
 
 	private
@@ -48,19 +42,24 @@ class Game
 					inputs = curr_player.input
 					set_success = @board.set_mark(inputs[0], inputs[1], curr_player.mark)  #colummn then row
 					redo unless set_success
-					break unless @board.get_win_mark.nil?
+					break unless @board.end_marker.nil?
 
 					curr_player, wait_player = wait_player, curr_player
 				end
-				puts "			CONGRATULATIONS TO #{curr_player.name.upcase}, YOU WON"
-				puts "			Input any key to play again , or Ctrl + C to quit"
-				temp = gets
+				
+				if(@board.end_marker == :nowinner)
+					puts "			DRAW!!!!!!"
+				else
+					puts "			CONGRATULATIONS TO #{curr_player.name.upcase}, YOU WON"
+				end
 
+
+				puts "			Input any key to play again , or Ctrl + C to quit"
+				temp = STDIN.getch
+				exit(1) if temp == "\u0003"
 				@board.reset
 				run_game
-
 			end
 end
 
 new_game = Game.new
-new_game.start
