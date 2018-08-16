@@ -7,7 +7,7 @@ A tic tac toe game from the console.
 Change directory into project, then run Ruby intepretor on the Game.rb file
 
 ```
-$ cd ./ruby_tictactoe
+$ cd ./ruby_tictactoe/lib
 $ ruby Game.rb
 ```
 
